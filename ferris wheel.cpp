@@ -57,34 +57,33 @@ double eps = 1e-12;
 
 void solve()
 {
-    ll n, m, k;
-    cin >> n >> m >> k;
-    ll desired_size[n], size[m];
-
+    ll n,x;
+    cin >> n>>x;
+    ll arr[n];
     forn(i, n)
     {
-        cin >> desired_size[i];
+        cin >> arr[i];
     }
+    sort(al(arr, n));
 
-    forn(i, m)
-    {
-        cin >> size[i];
-    }
+    ll i = 0, j = n - 1,cnt=0;
 
-    ll cnt = 0;
-    forn(i, n)
-    {
-        forn(j, m)
+    while(i<=j){
+        ll w = arr[i] + arr[j];
+        if (i==j)
         {
-            if (desired_size[i] - k > 0)
-            {
-                if (size[j] >= desired_size[i] - k &&
-                    size[j] <= desired_size[i] + k)
-                {
-                    cnt++;
-                    size[j] = -1;
-                }
-            }
+            cnt++;
+            break;
+        }
+        if (w<=x)
+        {
+            cnt++;
+            i++;
+            j--;
+        }
+        else{
+            cnt++;
+            j--;
         }
     }
     cout << cnt << ln;
@@ -92,7 +91,7 @@ void solve()
 int main()
 {
     fast_cin();
-    ll t = 1;
+    ll t=1;
     // cin >> t;
     for (int it = 1; it <= t; it++)
     {
