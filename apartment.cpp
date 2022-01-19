@@ -57,37 +57,46 @@ double eps = 1e-12;
 
 void solve()
 {
-    ll n, m, k;
-    cin >> n >> m >> k;
-    ll desired_size[n], size[m];
+    ll n, m, x;
+    cin >> n >> m >> x;
+    ll arr[n], app_size[m];
 
     forn(i, n)
     {
-        cin >> desired_size[i];
+        cin >> arr[i];
     }
 
     forn(i, m)
     {
-        cin >> size[i];
+        cin >> app_size[i];
     }
 
-    ll cnt = 0;
-    forn(i, n)
+    sort(al(arr, n));
+    sort(al(app_size, m));
+
+    ll i = 0, j = 0, count = 0;
+
+    while (i < n && j < m)
     {
-        forn(j, m)
+        if (arr[i] - x <= app_size[j] && app_size[j] <= arr[i] + x)
         {
-            if (desired_size[i] - k > 0)
-            {
-                if (size[j] >= desired_size[i] - k &&
-                    size[j] <= desired_size[i] + k)
-                {
-                    cnt++;
-                    size[j] = -1;
-                }
-            }
+            i++;
+            j++;
+            count++;
         }
+
+        if (app_size[j] < arr[i] - x)
+        {
+            j++;
+        }
+
+        if (app_size[j] > arr[i] + x)
+        {
+            i++;
+        }
+
     }
-    cout << cnt << ln;
+    cout << count << ln;
 }
 int main()
 {
